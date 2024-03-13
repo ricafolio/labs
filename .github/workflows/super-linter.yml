@@ -12,7 +12,7 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  run-lint:
+  run-prettier:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,9 +21,5 @@ jobs:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
 
-      - name: Lint Code Base
-        uses: github/super-linter@v4
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: "main"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check prettier
+        run: npx prettier --check .
