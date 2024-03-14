@@ -31,7 +31,7 @@ jobs:
           retention-days: 1
 
       - name: Output artifact ID
-        run:  echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-id }}'
+        run: echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-id }}'
 
       - name: Download dist.zip as artifact
         uses: actions/download-artifact@v4
@@ -50,4 +50,4 @@ jobs:
           files: temp/dist.zip
 
       - name: Output new release
-        run:  echo 'Released ${{ steps.final-release-step.outputs.id }} at ${{ steps.final-release-step.outputs.url }}'
+        run: echo 'Released ${{ steps.final-release-step.outputs.id }} at ${{ steps.final-release-step.outputs.url }}'
