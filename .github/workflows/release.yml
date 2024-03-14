@@ -39,7 +39,7 @@ jobs:
       - name: Download dist.zip as artifact
         uses: actions/download-artifact@v4
         with:
-          name: dist.zip
+          name: dist
 
       - name: Display structure of downloaded files
         run: ls -R
@@ -49,7 +49,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           body: "This is an automatic release with the built distribution."
-          files: dist.zip
+          files: dist
 
       - name: Output new release
         run: echo 'Released ${{ steps.final-release-step.outputs.id }} at ${{ steps.final-release-step.outputs.url }}'
