@@ -56,7 +56,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           body: "This is an automatic release with the built distribution."
-          files: dist
+          files: dist.zip
 
       - name: Output new release
         run: echo 'Released ${{ steps.final-release-step.outputs.id }} at ${{ steps.final-release-step.outputs.url }}'
