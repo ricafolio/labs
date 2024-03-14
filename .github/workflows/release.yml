@@ -29,7 +29,7 @@ jobs:
         id: artifact-upload-step
         uses: actions/upload-artifact@v4
         with:
-          name: dist.zip
+          name: dist
           path: dist.zip
           retention-days: 1
 
