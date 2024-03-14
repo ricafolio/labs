@@ -2,11 +2,15 @@ name: Release zip file
 
 # Which event cause workflow
 on:
-  push:
-    branches: ["main"]
+  pull_request: # Merged PRs to main
+    branches:
+      - main
+    types:
+      - closed
 
 jobs:
   release-zip:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
