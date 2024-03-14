@@ -42,11 +42,16 @@ jobs:
       - name: Display structure of files
         run: ls -R
 
+      - name: Generate release tag
+        id: tag
+        run: |
+          echo "::set-output name=release_tag::UserBuild_$(date +"%Y.%m.%d_%H-%M")"
+
       - name: Create release with dist zip
         id: final-release-step
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ steps.tag.outputs.release_tag }}
           body: "This is an automatic release with the built distribution."
           files: dist.zip
 
