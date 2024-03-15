@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: ["main"]
 jobs:
-  run-prettier:
+  check-formatting-via-prettier:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
