@@ -45,28 +45,18 @@ jobs:
       - name: Display structure of files
         run: ls -R
 
-      # - name: Generate release tag
-      #   id: tag
-      #   run: |
-      #     echo "::set-output name=release_tag::UserBuild_$(date +"%Y.%m.%d_%H-%M")"
-
-      - name: 'Get Previous tag'
-        id: previous-tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
-        with:
-          fallback: 1.0.0
-
-      - name: 'Get next minor version'
-        id: next-version
-        uses: WyriHaximus/github-action-next-semvers@v1
-        with:
-          version: ${{ steps.previous-tag.outputs.tag }}
+      - name: Generate release tag
+        id: get-version
+        run: |
+          VERSION=$(cat package.json | jq -r '.version')
+          echo "## Current Version: $VERSION"
+          echo ::set-output name=version_tag::$VERSION
 
       - name: Create release with dist zip
         id: final-release-step
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.next-version.outputs.patch }}
+          tag_name: ${{ steps.get-version.outputs.version_tag }}
           body: "This is an automatic release with the built distribution."
           files: dist.zip
 
