@@ -34,25 +34,29 @@ jobs:
 
       - name: Apply version bump (major)
         if: contains(github.event.pull_request.labels.*.name, 'major')
-        run: npm version major
+        run: npm version major --commit-hooks false --git-tag-version false
 
       - name: Apply version bump (minor)
         if: contains(github.event.pull_request.labels.*.name, 'minor')
-        run: npm version minor
+        run: npm version minor --commit-hooks false --git-tag-version false
 
       - name: Apply version bump (patch)
         if: contains(github.event.pull_request.labels.*.name, 'patch')
-        run: npm version patch
-
-      - name: Git push version bump
-        run: git push origin main --follow-tags
+        run: npm version patch --commit-hooks false --git-tag-version false
 
       - name: Generate release tag
         id: get-version
         run: |
-          VERSION=$(npm pkg get version)
+          VERSION="v$(npm pkg get version | tr -d '\"')"
           echo "## Current Version: $VERSION"
-          echo ::set-output name=version_tag::$VERSION
+          echo ::set-output name=new_version::$VERSION
+
+      - name: Git commit and push version bump
+        run: |
+          git stage package.json package-lock.json
+          git commit -m "chore(deps): bump version to ${{ steps.get-version.outputs.new_version }}"
+          git tag ${{ steps.get-version.outputs.new_version }}
+          git push origin main --follow-tags
 
       # ------------------------------------------------------ #
       - name: Create dist folder as zip file
@@ -79,7 +83,7 @@ jobs:
         id: final-release-step
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.get-version.outputs.version_tag }}
+          tag_name: ${{ steps.get-version.outputs.new_version }}
           body: "This is an automatic release with the built distribution."
           files: dist.zip
 
