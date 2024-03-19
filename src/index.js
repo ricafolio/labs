@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client"
 import { Tasks } from "./Tasks.jsx"
 import { TaskNew } from "./TaskNew.jsx"
 
-function MyApp () {
+function MyApp() {
   const genId = () => {
     return crypto.randomUUID()
   }
@@ -15,7 +15,7 @@ function MyApp () {
     { id: genId(), name: "Cook dinner" },
   ])
 
-  function addNewTask (name) {
+  function addNewTask(name) {
     setTask([
       ...tasks,
       {
@@ -25,7 +25,7 @@ function MyApp () {
     ])
   }
 
-  function deleteTask (id) {
+  function deleteTask(id) {
     setTask(tasks.filter((num) => num.id !== id))
   }
 
