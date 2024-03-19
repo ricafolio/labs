@@ -4,24 +4,28 @@ import { createRoot } from "react-dom/client"
 import { Tasks } from "./Tasks.jsx"
 import { TaskNew } from "./TaskNew.jsx"
 
-function MyApp() {
+function MyApp () {
+  const genId = () => {
+    return crypto.randomUUID()
+  }
+
   const [tasks, setTask] = useState([
-    { id: 1, name: "Cook" },
-    { id: 2, name: "Cook lunch" },
-    { id: 3, name: "Cook dinner" },
+    { id: genId(), name: "Cook" },
+    { id: genId(), name: "Cook lunch" },
+    { id: genId(), name: "Cook dinner" },
   ])
 
-  function addNewTask(name) {
+  function addNewTask (name) {
     setTask([
       ...tasks,
       {
-        id: new Date().getTime(),
+        id: genId(),
         name,
       },
     ])
   }
 
-  function deleteTask(id) {
+  function deleteTask (id) {
     setTask(tasks.filter((num) => num.id !== id))
   }
 
