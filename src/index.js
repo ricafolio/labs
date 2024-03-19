@@ -11,11 +11,21 @@ function MyApp() {
     { id: 3, name: "Cook dinner" },
   ])
 
+  function addNewTask(name) {
+    setTask([
+      ...tasks,
+      {
+        id: new Date().getTime(),
+        name,
+      },
+    ])
+  }
+
   return (
     <>
       <h1>To-do list</h1>
       <Tasks tasks={tasks} />
-      <TaskNew />
+      <TaskNew handleClick={addNewTask} />
     </>
   )
 }
