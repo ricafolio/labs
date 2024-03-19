@@ -66,11 +66,23 @@ input {
   padding: 0.5rem 0;
 }
 
-.tasks > .task::before {
+.tasks > .task span::before {
   content: "•";
   padding-right: 6px;
 }
 
 .tasks > .task:first-child {
   border-top: 1.5px solid #000;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task button {
+  padding: 5px;
+  border: none;
+  background-color: transparent;
 }

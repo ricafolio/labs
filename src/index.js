@@ -21,10 +21,14 @@ function MyApp() {
     ])
   }
 
+  function deleteTask(id) {
+    setTask(tasks.filter((num) => num.id !== id))
+  }
+
   return (
     <>
       <h1>To-do list</h1>
-      <Tasks tasks={tasks} />
+      <Tasks tasks={tasks} deleteTask={deleteTask} />
       <TaskNew handleClick={addNewTask} />
     </>
   )
