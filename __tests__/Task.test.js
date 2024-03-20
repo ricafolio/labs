@@ -41,4 +41,54 @@ describe("Task tests", () => {
     // Added task gone
     expect(newTaskElement1).not.toBeInTheDocument()
   })
+
+  it("Should delete the correct task within multiple tasks", () => {
+    const taskName = "Delete me"
+    const numberOfSameTasks = 5
+    const targetIndexToDelete = 1 // second task
+
+    // add 5 tasks with the same name
+    for (let i = 0; i < numberOfSameTasks; i++) {
+      addNewTask(taskName)
+    }
+
+    // get all tasks
+    const tasks = screen.queryAllByText(taskName)
+    expect(tasks.length).toBe(numberOfSameTasks)
+
+    // verify tasks
+    tasks.forEach((task, index) => {
+      const taskParent = task.parentElement
+
+      /// verify task and parent
+      expect(task).toBeInTheDocument()
+      expect(taskParent).toHaveClass("task")
+      expect(taskParent).toHaveAttribute("data-testid")
+      expect(taskParent.parentElement).toHaveClass("tasks")
+
+      // verify button
+      const deleteBtn = taskParent.querySelector("button")
+      const svgIcon = deleteBtn.querySelector("svg")
+      expect(taskParent).toContainElement(deleteBtn)
+      expect(deleteBtn).toContainElement(svgIcon)
+
+      // delete target task by index
+      if (index === targetIndexToDelete) {
+        fireEvent.click(deleteBtn)
+      }
+    })
+
+    // verify tasks is decreased
+    const remainingTasks = screen.queryAllByText(taskName)
+    expect(remainingTasks.length).toBe(numberOfSameTasks - 1)
+
+    // verify which tasks are in the document via old tasks
+    tasks.forEach((task, index) => {
+      if (index === targetIndexToDelete) {
+        expect(task).not.toBeInTheDocument()
+      } else {
+        expect(task).toBeInTheDocument()
+      }
+    })
+  })
 })
