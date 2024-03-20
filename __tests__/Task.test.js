@@ -18,28 +18,31 @@ describe("Task tests", () => {
     const newTaskName = "Study Jest"
     addNewTask(newTaskName)
 
+    // Verify new task is added
     const newTaskElement = screen.queryByText(newTaskName)
-
     expect(newTaskElement).toBeInTheDocument()
   })
 
   it("Should be able to delete task", () => {
-    const newTaskName1 = "Delete me"
-    addNewTask(newTaskName1)
-    const newTaskElement1 = screen.queryByText(newTaskName1)
+    const newTaskName = "Delete me"
+    addNewTask(newTaskName)
+
+    // Verify new task is added
+    const newTaskElement = screen.queryByText(newTaskName)
+    expect(newTaskElement).toBeInTheDocument()
 
     // Added task has delete button element
-    const deleteBtn = newTaskElement1.nextElementSibling
+    const deleteBtn = newTaskElement.nextElementSibling
     expect(deleteBtn).toBeInTheDocument()
 
-    // Button has trash icon
-    const deleteBtnSVG = newTaskElement1.nextElementSibling.querySelector("svg")
-    expect(deleteBtnSVG).toBeInTheDocument()
+    // Delete button has trash icon
+    const deleteBtnSVG = deleteBtn.querySelector("svg")
+    expect(deleteBtn).toContainElement(deleteBtnSVG)
 
     fireEvent.click(deleteBtn)
 
-    // Added task gone
-    expect(newTaskElement1).not.toBeInTheDocument()
+    // Verify added task is gone
+    expect(newTaskElement).not.toBeInTheDocument()
   })
 
   it("Should delete the correct task within multiple tasks", () => {
