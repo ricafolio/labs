@@ -3,7 +3,7 @@ export function Tasks({ tasks, deleteTask }) {
     <div className="tasks">
       {tasks.map((task) => {
         return (
-          <div className="task" key={task.id}>
+          <div className="task" data-testid={task.id} key={task.id}>
             <span>{task.name}</span>
             <button className="icon-btn" onClick={() => deleteTask(task.id)}>
               <svg
