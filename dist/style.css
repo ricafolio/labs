@@ -86,3 +86,9 @@ input {
   border: none;
   background-color: transparent;
 }
+
+.error {
+  color: maroon;
+  font-size: 0.8rem;
+  margin-bottom: 3px;
+}
