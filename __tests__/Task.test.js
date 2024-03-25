@@ -37,6 +37,30 @@ describe("Task tests", () => {
     expect(newTaskElement).toBeInTheDocument()
   })
 
+  it("Should not be able to add tasks with empty or whitespace characters only", async () => {
+    const inputBox = screen.queryByPlaceholderText("Write new task")
+    const taskNames = ["", " ", "     ", "good task name"]
+
+    taskNames.forEach((taskName) => {
+      // Verify value is on input field
+      fireEvent.change(inputBox, { target: { value: taskName } })
+      expect(inputBox.value).toBe(taskName)
+      fireEvent.submit(inputBox)
+
+      // Verify error message is shown or not
+      const errorMessageElement = screen.queryByText(
+        "Please enter a valid input",
+      )
+      const isBadTaskName = taskName.match(/^\s*$/)
+
+      if (isBadTaskName) {
+        expect(errorMessageElement).toBeInTheDocument()
+      } else {
+        expect(errorMessageElement).not.toBeInTheDocument()
+      }
+    })
+  })
+
   it("Should be able to delete task", () => {
     const newTaskName = "Delete me"
     addNewTask(newTaskName)
