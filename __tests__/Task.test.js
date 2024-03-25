@@ -23,6 +23,20 @@ describe("Task tests", () => {
     expect(newTaskElement).toBeInTheDocument()
   })
 
+  it("Should be able to add task using enter key", async () => {
+    const newTaskName = "Cream soup"
+    const inputBox = screen.queryByPlaceholderText("Write new task")
+
+    // Verify value is on input field
+    fireEvent.change(inputBox, { target: { value: newTaskName } })
+    expect(inputBox.value).toBe(newTaskName)
+
+    // Verify new task is added
+    fireEvent.submit(inputBox)
+    const newTaskElement = screen.queryByText(newTaskName)
+    expect(newTaskElement).toBeInTheDocument()
+  })
+
   it("Should be able to delete task", () => {
     const newTaskName = "Delete me"
     addNewTask(newTaskName)
