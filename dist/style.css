@@ -58,6 +58,7 @@ input {
 
 .tasks {
   margin: 1rem 0;
+  padding: 0;
 }
 
 .tasks > .task {
@@ -85,4 +86,10 @@ input {
   padding: 5px;
   border: none;
   background-color: transparent;
+}
+
+.error {
+  color: maroon;
+  font-size: 0.8rem;
+  margin-bottom: 3px;
 }
