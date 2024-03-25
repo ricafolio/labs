@@ -2,8 +2,10 @@ import { render, screen, fireEvent } from "@testing-library/react"
 import { MyApp } from "../src/App.jsx"
 
 function addNewTask(taskName) {
-  const submitBtn = screen.queryByText("Submit")
-  const inputBox = screen.queryByPlaceholderText("Write new task")
+  const submitBtn = screen.getByRole("button", {
+    name: /submit/i,
+  })
+  const inputBox = screen.getByRole("textbox", { name: /add task/i })
 
   fireEvent.change(inputBox, { target: { value: taskName } })
   fireEvent.click(submitBtn)
@@ -25,7 +27,7 @@ describe("Task tests", () => {
 
   it("Should be able to add task using enter key", async () => {
     const newTaskName = "Cream soup"
-    const inputBox = screen.queryByPlaceholderText("Write new task")
+    const inputBox = screen.getByRole("textbox", { name: /add task/i })
 
     // Verify value is on input field
     fireEvent.change(inputBox, { target: { value: newTaskName } })
@@ -38,7 +40,7 @@ describe("Task tests", () => {
   })
 
   it("Should not be able to add tasks with empty or whitespace characters only", async () => {
-    const inputBox = screen.queryByPlaceholderText("Write new task")
+    const inputBox = screen.getByRole("textbox", { name: /add task/i })
     const taskNames = ["", " ", "     ", "good task name"]
 
     taskNames.forEach((taskName) => {

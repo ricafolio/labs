@@ -19,7 +19,9 @@ export function TaskNew({ handleClick }) {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
+      <label htmlFor="task-input">Add task</label>
       <input
+        id="task-input"
         type="text"
         placeholder="Write new task"
         value={newTask}
