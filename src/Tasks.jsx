@@ -1,9 +1,9 @@
 export function Tasks({ tasks, deleteTask }) {
   return (
-    <div className="tasks">
+    <ul className="tasks">
       {tasks.map((task) => {
         return (
-          <div className="task" data-testid={task.id} key={task.id}>
+          <li className="task" data-testid={task.id} key={task.id}>
             <span>{task.name}</span>
             <button className="icon-btn" onClick={() => deleteTask(task.id)}>
               <svg
@@ -22,9 +22,9 @@ export function Tasks({ tasks, deleteTask }) {
                 ></path>
               </svg>
             </button>
-          </div>
+          </li>
         )
       })}
-    </div>
+    </ul>
   )
 }
