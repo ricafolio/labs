@@ -93,3 +93,9 @@ input {
   font-size: 0.8rem;
   margin-bottom: 3px;
 }
+
+label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
